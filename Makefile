@@ -11,7 +11,7 @@ all:
 test: all
 	$(DUNE) test
 
-promote:
+promote: all
 	$(DUNE) promote
 
 clean:

@@ -1,0 +1,83 @@
+(rule
+ (deps for_let.ml)
+ (action
+  (with-stdout-to
+   for_let.output
+   (with-accepted-exit-codes
+    1
+    (run ../src/main.exe for_let.ml)))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff for_let.output for_let.expected)))
+
+(rule
+ (deps while_let.ml)
+ (action
+  (with-stdout-to
+   while_let.output
+   (with-accepted-exit-codes
+    1
+    (run ../src/main.exe while_let.ml)))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff while_let.output while_let.expected)))
+
+(rule
+ (deps ref_global.ml)
+ (action
+  (with-stdout-to
+   ref_global.output
+   (with-accepted-exit-codes
+    1
+    (run ../src/main.exe ref_global.ml)))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff ref_global.output ref_global.expected)))
+
+(rule
+ (deps ref_let.ml)
+ (action
+  (with-stdout-to
+   ref_let.output
+   (with-accepted-exit-codes
+    1
+    (run ../src/main.exe ref_let.ml)))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff ref_let.output ref_let.expected)))
+
+(rule
+ (deps ref_appl_fun.ml)
+ (action
+  (with-stdout-to
+   ref_appl_fun.output
+   (with-accepted-exit-codes
+    1
+    (run ../src/main.exe ref_appl_fun.ml)))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff ref_appl_fun.output ref_appl_fun.expected)))
+
+(rule
+ (deps ref_let_appl_fun.ml)
+ (action
+  (with-stdout-to
+   ref_let_appl_fun.output
+   (with-accepted-exit-codes
+    1
+    (run ../src/main.exe ref_let_appl_fun.ml)))))
+
+(rule
+ (alias runtest)
+ (action
+  (diff ref_let_appl_fun.output ref_let_appl_fun.expected)))
