@@ -42,16 +42,19 @@ let detect_ref_and_while ast =
   !found
 
 let () =
-  let filename = Sys.argv.(1) in
-  let ast = parse_ocaml_file filename in
-  let found = detect_ref_and_while ast in
-
-  if ExprSet.is_empty found then exit 0
-  else (
-    found
-    |> ExprSet.iter (function
-         | Ref, loc -> Format.printf "%a: found ref\n" Location.print_loc loc
-         | While, loc ->
-             Format.printf "%a: found while\n" Location.print_loc loc
-         | For, loc -> Format.printf "%a: found for\n" Location.print_loc loc);
-    exit 1)
+  let files = Array.to_list Sys.argv |> List.tl in
+  let alarms =
+    List.fold_left
+      (fun acc filename ->
+        let ast = parse_ocaml_file filename in
+        let found = detect_ref_and_while ast in
+        ExprSet.union acc found)
+      ExprSet.empty files
+  in
+  ExprSet.iter
+    (function
+      | Ref, loc -> Format.printf "%a: found ref\n" Location.print_loc loc
+      | While, loc -> Format.printf "%a: found while\n" Location.print_loc loc
+      | For, loc -> Format.printf "%a: found for\n" Location.print_loc loc)
+    alarms;
+  if ExprSet.is_empty alarms then exit 0 else exit 1
