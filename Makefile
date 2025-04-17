@@ -6,7 +6,9 @@ EXE=checkml
 
 all:
 	$(DUNE) build
+ifndef GITHUB_CI
 	$(LN) _build/default/src/checkml.exe $(EXE)
+endif
 
 test: all
 	$(DUNE) test
