@@ -5,13 +5,10 @@ RM=@rm
 EXE=checkml
 
 all:
-	
+	$(DUNE) build --build-dir=./temp_build
 ifndef GITHUB_CI
-	$(DUNE) build
 	$(LN) _build/default/src/checkml.exe $(EXE)
-else
-	$(DUNE) install
-
+endif
 
 test: all
 	$(DUNE) test
