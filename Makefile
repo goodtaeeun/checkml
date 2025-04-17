@@ -5,10 +5,13 @@ RM=@rm
 EXE=checkml
 
 all:
-	$(DUNE) build
+	
 ifndef GITHUB_CI
+	$(DUNE) build
 	$(LN) _build/default/src/checkml.exe $(EXE)
-endif
+else
+	$(DUNE) install
+
 
 test: all
 	$(DUNE) test
